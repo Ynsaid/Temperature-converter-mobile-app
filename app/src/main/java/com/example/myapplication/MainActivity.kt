@@ -39,7 +39,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -649,16 +648,12 @@ private fun updateFromKelvin(
         )
     }
 
-    val kelvin = cleanValue.toDoubleOrNull()
-
-    if (kelvin == null) {
-        return state.copy(
-            kelvin = cleanValue,
-            activeField = TemperatureField.KELVIN,
-            errorMessage =
-                "أدخل رقمًا صحيحًا في حقل كلفن."
-        )
-    }
+    val kelvin = cleanValue.toDoubleOrNull() ?: return state.copy(
+        kelvin = cleanValue,
+        activeField = TemperatureField.KELVIN,
+        errorMessage =
+            "أدخل رقمًا صحيحًا في حقل كلفن."
+    )
 
     if (kelvin < 0.0) {
         return state.copy(
@@ -695,16 +690,12 @@ private fun updateFromCelsius(
         )
     }
 
-    val celsius = cleanValue.toDoubleOrNull()
-
-    if (celsius == null) {
-        return state.copy(
-            celsius = cleanValue,
-            activeField = TemperatureField.CELSIUS,
-            errorMessage =
-                "أدخل رقمًا صحيحًا في حقل مئوي."
-        )
-    }
+    val celsius = cleanValue.toDoubleOrNull() ?: return state.copy(
+        celsius = cleanValue,
+        activeField = TemperatureField.CELSIUS,
+        errorMessage =
+            "أدخل رقمًا صحيحًا في حقل مئوي."
+    )
 
     val kelvin = celsius + 273.15
     val fahrenheit = celsius * 9.0 / 5.0 + 32.0
@@ -732,16 +723,12 @@ private fun updateFromFahrenheit(
         )
     }
 
-    val fahrenheit = cleanValue.toDoubleOrNull()
-
-    if (fahrenheit == null) {
-        return state.copy(
-            fahrenheit = cleanValue,
-            activeField = TemperatureField.FAHRENHEIT,
-            errorMessage =
-                "أدخل رقمًا صحيحًا في حقل فهرنهايت."
-        )
-    }
+    val fahrenheit = cleanValue.toDoubleOrNull() ?: return state.copy(
+        fahrenheit = cleanValue,
+        activeField = TemperatureField.FAHRENHEIT,
+        errorMessage =
+            "أدخل رقمًا صحيحًا في حقل فهرنهايت."
+    )
 
     val celsius = (fahrenheit - 32.0) * 5.0 / 9.0
     val kelvin = celsius + 273.15
